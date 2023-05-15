@@ -1,5 +1,5 @@
 [package]
-name = "db-storage-engine"
+name = "lsm-tree-db-storage-engine"
 version = "0.1.0"
 edition = "2021"
 
