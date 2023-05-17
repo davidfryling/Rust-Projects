@@ -17,7 +17,18 @@ pub enum NodeType {
     Unexpected,
 }
 
-// vvv... LEFT OFF HERE ...vvv
+/* 
+    Notes:
+        - This code is simply reading blocks of memory and assigning them to properties of our Node struct.
+        - Since this is very low level, we have to tell the programe exactly where in memory to look.
+        - BLOCK_NAME_OFFSET is how we tell the program where to find a specific block of memory. 
+        - BLOCK_NAME_SIZE is the size of a memory block.
+        - We can skip blocks of memory by setting the offset = BLOCK_NAME_SIZE 
+            and searching for the next block with offset of the previous blocks size.
+        - For example, if we have an array of items in memory with the same BLOCK_NAME*,  
+            we can traverse the array by setting the offset += BLOCK_NAME_SIZE 
+            during each pass of a for loop.
+*/
 
 // Implement TryFrom<Page> for Node allowing for easier deserialization of data from a Page
 impl TryFrom<Page> for Node {
@@ -33,6 +44,7 @@ impl TryFrom<Page> for Node {
             parent_offset = Some(Offset(page.get_value_from_offset(PARENT_POINTER_OFFSET)?));
         }
 
+        // Assign properties of Node with data from memory based on matching NodeType
         match node_type {
             NodeType::Internal(mut children, mut keys) => {
                 let num_children = page.get_value_from_offset(INTERNAL_NODE_NUM_CHILDREN_OFFSET)?;
