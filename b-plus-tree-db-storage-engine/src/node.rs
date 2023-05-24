@@ -30,7 +30,7 @@ pub enum NodeType {
             during each pass of a for loop.
 */
 
-// Implement TryFrom<Page> for Node allowing for easier deserialization of data from a Page
+// Implement TryFrom<Page> for Node allowing for easier deserialization of data from a Page to a Node
 impl TryFrom<Page> for Node {
     type Error = Error;
     fn try_from(page: Page) -> Result<Node, Error> {
